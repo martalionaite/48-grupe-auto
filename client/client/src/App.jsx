@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BasicLayout } from './layout/BasicLayout';
+import { PageHome } from './pages/home/PageHome';
+import { PageCarListing } from './pages/auto/PageCarListing';
+import { PageCarListingInner } from './pages/auto/PageCarListingInner';
+import { PageAbout } from './pages/about/PageAbout';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route Component={BasicLayout}>
+          <Route index path='/' element={<PageHome />} />
+          <Route path='/auto-list' element={<PageCarListing />} />
+          <Route path='/auto-list/:id' element={<PageCarListingInner />} />
+          <Route path='/about' element={<PageAbout />} />
+        </Route>
+
+        <Route Component={BasicLayout}>
+          <Route path='/register' element={<></>} />
+          <Route path='/login' element={<></>} />
+        </Route>
+
+        <Route Component={BasicLayout}>
+          <Route path='/account' element={<></>} />
+          <Route path='/account/my-auto-list' element={<></>} />
+          <Route path='/account/my-auto-list/create' element={<></>} />
+          <Route path='/account/my-auto-list/view' element={<></>} />
+          <Route path='/account/my-auto-list/edit' element={<></>} />
+          <Route path='/account/my-auto-list/delete' element={<></>} />
+          <Route path='/account/settings' element={<></>} />
+        </Route>
+
+        <Route Component={BasicLayout}>
+          <Route path='*' element={<></>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
